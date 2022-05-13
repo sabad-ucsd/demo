@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Timeline</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="timesheet.min.js"></script>
+    <link rel="stylesheet" href="timesheet.min.css">
+</head>
+
+<body>
+    <style>
+        #timesheet-default {
+            background-color: #251919;
+            width: 100%;
+            height: 200px;
+        }
+
+        .bubble-summer {
+            background-color: red;
+        }
+
+        .bubble-fulltime {
+            background-color: pink;
+        }
+
+        .bubble-weekends {
+            background-color: orange;
+        }
+
+        .bubble-summerweekend {
+            background-color: purple;
+        }
+
+        .bubble-halftime {
+            background-color: green;
+        }
+
+        body>div>form>div {
+            padding-top: 1rem;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#submitBtn").click(function () {
+                var moveIn_1 = $("#moveIn_1").val()
+                var moveOut_1 = $("#moveOut_1").val()
+                var timeSpent_1 = $("#timeSpent_1").val()
+
+                var moveIn_2 = $("#moveIn_2").val()
+                var moveOut_2 = $("#moveOut_2").val()
+                var timeSpent_2 = $("#timeSpent_2").val()
+
+                var moveIn_3 = $("#moveIn_3").val()
+                var moveOut_3 = $("#moveOut_3").val()
+                var timeSpent_3 = $("#timeSpent_3").val()
+
+                var moveIn_4 = $("#moveIn_4").val()
+                var moveOut_4 = $("#moveOut_4").val()
+                var timeSpent_4 = $("#timeSpent_4").val()
+
+                var moveIn_5 = $("#moveIn_5").val()
+                var moveOut_5 = $("#moveOut_5").val()
+                var timeSpent_5 = $("#timeSpent_5").val()
+
+                $("#timesheet-default").empty()
+                var newArr = [
+                    [moveIn_1, moveOut_1, '1234 Main St ' + timeSpent_1, timeSpent_1],
+                    [moveIn_2, moveOut_2, '555 Pine St ' + timeSpent_2, timeSpent_2],
+                    [moveIn_3, moveOut_3, '999 Another Rd ' + timeSpent_3, timeSpent_3],
+                    [moveIn_4, moveOut_4, 'Unknown - ' + timeSpent_4, timeSpent_4],
+                    [moveIn_5, moveOut_5, 'Transitional - ' + timeSpent_5, timeSpent_5]]
+
+                newArr.sort(function (a, b) {
+                    return moment(a, 'MM/YYYY').diff(moment(b, 'MM/YYYY'))
+                });
+                new Timesheet('timesheet-default', 2008, 2022, newArr);
+            });
+
+
+
+            var arr = [
+                [moment('04/2009', 'MM/YYYY').format('MM/YYYY'), '09/2015', '1234 Main St - halftime', 'halftime'],
+                [moment('04/2009', 'MM/YYYY').format('MM/YYYY'), '09/2015', '111 Pine St - halftime', 'halftime'],
+                [moment('08/2017', 'MM/YYYY').format('MM/YYYY'), '05/2022', '999 Another Rd - fulltime', 'fulltime'],
+                [moment('05/2008', 'MM/YYYY').format('MM/YYYY'), '03/2009', 'Unknown - fulltime', 'fulltime'],
+                [moment('10/2015', 'MM/YYYY').format('MM/YYYY'), '07/2017', 'Transitional - fulltime', 'fulltime'],
+
+            ]
+
+            // arr.sort(function (a, b) {
+            //     return moment(a, 'MM/YYYY').diff(moment(b, 'MM/YYYY'))
+            // });
+
+            console.log(arr)
+            new Timesheet('timesheet-default', 2008, 2022, arr);
+        });
+
+
+
+
+    </script>
+    <div class="container">
+        <h1> Address Timeline</h1>
+        <div id="timesheet-default"></div>
+        <form>
+            <div class="row">
+                <div class="col">
+                    <!-- <label for="inputEmail4" class="form-label">Address</label> -->
+                    <br />
+                    1234 Main St
+                </div>
+                <div class="col">
+                    <label for="inputEmail4" class="form-label">Move In</label>
+                    <input type="text" id="moveIn_1" class="form-control" placeholder="Move In" value="04/2009"
+                        aria-label="First name">
+                </div>
+                <div class="col">
+                    <label for="inputEmail4" class="form-label">Move Out</label>
+                    <input type="text" id="moveOut_1" class="form-control" placeholder="Move Out" value="09/2015"
+                        aria-label="Last name">
+                </div>
+                <div class="col">
+                    <label for="inputEmail4" class="form-label">Time Spent</label>
+                    <select class="form-select" name="timeSpent_1" id="timeSpent_1">
+                        <option value="fulltime">Full-Time</option>
+                        <option value="halftime" selected>Half-Time</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="summer">Summer</option>
+                        <option value="summerweekend">Summers and Weekends</option>
+                    </select>
+                </div>
+            </div>
+            <!-- second one -->
+            <div class="row">
+                <div class="col">
+                    555 Pine St
+                </div>
+                <div class="col">
+                    <input type="text" id="moveIn_2" class="form-control" placeholder="Move In" value="04/2009"
+                        aria-label="First name">
+                </div>
+                <div class="col">
+                    <input type="text" id="moveOut_2" class="form-control" placeholder="Move Out" value="09/2015"
+                        aria-label="Last name">
+                </div>
+                <div class="col">
+                    <select class="form-select" name="timeSpent_2" id="timeSpent_2">
+                        <option value="fulltime">Full-Time</option>
+                        <option value="halftime" selected>Half-Time</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="summer">Summer</option>
+                        <option value="summerweekend">Summers and Weekends</option>
+                    </select>
+                </div>
+            </div>
+            <!-- third one -->
+            <div class="row">
+                <div class="col">
+                    999 Another Rd
+                </div>
+                <div class="col">
+                    <input type="text" id="moveIn_3" class="form-control" placeholder="Move In" value="08/2017"
+                        aria-label="First name">
+                </div>
+                <div class="col">
+                    <input type="text" id="moveOut_3" class="form-control" placeholder="Move Out" value="05/2022"
+                        aria-label="Last name">
+                </div>
+                <div class="col">
+                    <select class="form-select" name="timeSpent_3" id="timeSpent_3">
+                        <option value="fulltime">Full-Time</option>
+                        <option value="halftime">Half-Time</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="summer">Summer</option>
+                        <option value="summerweekend">Summers and Weekends</option>
+                    </select>
+                </div>
+            </div>
+            <!-- fourth one -->
+            <div class="row">
+                <div class="col">
+                    Unknown
+                </div>
+                <div class="col">
+                    <input type="text" id="moveIn_4" class="form-control" placeholder="Move In" value=05/2008
+                        aria-label="First name">
+                </div>
+                <div class="col">
+                    <input type="text" id="moveOut_4" class="form-control" placeholder="Move Out" value=03/2009
+                        aria-label="Last name">
+                </div>
+                <div class="col">
+                    <select class="form-select" name="timeSpent_4" id="timeSpent_4">
+                        <option value="fulltime">Full-Time</option>
+                        <option value="halftime">Half-Time</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="summer">Summer</option>
+                        <option value="summerweekend">Summers and Weekends</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    Transitional
+                </div>
+                <div class="col">
+
+                    <input type="text" id="moveIn_5" class="form-control" placeholder="Move In" value="10/2015"
+                        aria-label="First name">
+                </div>
+                <div class="col">
+                    <input type="text" id="moveOut_5" class="form-control" placeholder="Move Out" value="07/2017"
+                        aria-label="Last name">
+                </div>
+                <div class="col">
+                    <select class="form-select" name="timeSpent_5" id="timeSpent_5">
+                        <option value="fulltime">Full-Time</option>
+                        <option value="halftime">Half-Time</option>
+                        <option value="weekends">Weekends</option>
+                        <option value="summer">Summer</option>
+                        <option value="summerweekend">Summers and Weekends</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
